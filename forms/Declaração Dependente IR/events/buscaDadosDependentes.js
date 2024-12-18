@@ -6,6 +6,7 @@ function buscaDadosDependentes(form, cpf){
         var sortingFields = null;
 
         constraints.push(DatasetFactory.createConstraint("CPF", cpf, cpf, ConstraintType.MUST));
+        constraints.push(DatasetFactory.createConstraint("INCIDEIRRF", "1", "1", ConstraintType.MUST));
 
         var dataset = DatasetFactory.getDataset("DsInfoFuncionariosDepRM", fields, constraints, sortingFields);
 

@@ -39,6 +39,8 @@ function buscaDadosFuncionario(form, cpf){
             form.setValue("cidade_nascimento", dataset.getValue(0,'NATURALIDADE'));
             form.setValue("txt_estado_civil", dataset.getValue(0,'CODIGO_ESTADOCIVIL'));
             form.setValue("txt_grau_instrucao", dataset.getValue(0,'CODIGO_GRAUINSTRUCAO'));
+            form.setValue("txt_departamento", dataset.getValue(0,'SECAO'));
+                        
         	
             
             buscaDadosDependentes(form,cpf);
