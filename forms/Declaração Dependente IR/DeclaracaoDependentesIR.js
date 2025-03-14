@@ -2,10 +2,14 @@ var modalDependente = null;
 
 $(function () {
   $("#add_dependente").hide();
+  trataSteps(WKNumState);
 
   if (WKNumState == 0 || WKNumState == 4 || WKNumState == 9) {
     $("#add_dependente").show();
-    $(".divAprovacao").hide();
+    
+    if (WKNumState != 9) {
+      $(".divAprovacao").hide();
+    }
 
     // Carrega o componente Calendário do próprio Fluig no campom Data da Aposentadoria
 
@@ -68,20 +72,14 @@ $(function () {
       var row = "";
       var new_num_dependente = num_dependente_modal; //Ajudar new_num_dependente no projeto de Recadastramento
       if (rowModal == "") {
-       
         var qtdeDependente = $("input[name^='num_dependente___']").length;
         if (qtdeDependente > 0) {
-          new_num_dependente = $(
-            "#num_dependente___" + (qtdeDependente)
-          ).val();
+          new_num_dependente = $("#num_dependente___" + qtdeDependente).val();
           new_num_dependente++;
         } else {
-          new_num_dependente = 1
+          new_num_dependente = 1;
         }
         row = wdkAddChild("tbDependentes");
-
-        
-        
       } else {
         row = rowModal;
       }
@@ -249,4 +247,29 @@ function openModalDependente(dadosDependente = null) {
         }
       );
     });
+}
+
+/* Função Steps de etapas */
+function trataSteps(atividade) {
+  if (atividade == 0 || atividade == 4) {
+    $(".step-cadastro").addClass("active has-warning");
+  } else if (atividade == 5) {
+    $(".step-cadastro").addClass("done has-success");
+    $(".step-analise").addClass("active has-warning");
+  } else if (atividade == 9) {
+    $(".step-cadastro").addClass("done has-success");
+    $(".step-analise").addClass("done has-success");
+    $(".step-aprovacao").addClass("active has-warning");
+    $(".status-aprovacao").html("Ajuste");
+  } else if (atividade == 12) {
+    $(".step-cadastro").addClass("done has-success");
+    $(".step-analise").addClass("done has-success");
+    $(".step-aprovacao").addClass("done has-success");
+    $(".status-aprovacao").html("Aprovado");
+  } else if (atividade == 14) {
+    $(".step-cadastro").addClass("done has-success");
+    $(".step-analise").addClass("done has-warning");
+    $(".step-aprovacao").addClass("done has-error");
+    $(".status-aprovacao").html("Reprovado");
+  }
 }
